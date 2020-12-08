@@ -4,6 +4,7 @@
 #include "../x/xMath3.h"
 #include "../x/xVec3Inlines.h"
 #include "../x/xCamera.h"
+
 struct xIsect
 {
 	uint32 flags;
@@ -14,18 +15,28 @@ struct xIsect
 	xVec3 norm;
 	float32 dist;
 };
-//#pragma GLOBAL_ASM("0x14fb80", "xVec3Length__FPC5xVec3")
-//class xSphere{
-//public:
-//typedef struct xIsect;
-//typedef struct xSphere;
 
-//};
-//extern "C" typedef struct xIsect;
-//#include <math.h>
+struct xRay3
+{
+	xVec3 origin;
+	xVec3 dir;
+	float32 min_t;
+	float32 max_t;
+	int flags;
+};
+
+
+#define float32 float
+#define uint32 unsigned int
+
+//EXTERN FUNCTIONS
 extern float32 xsqrt(float num);
 
 float32 xVec3Length(const xVec3 *param_1);
-   
+
+uint32 xMathSolveQuadratic(float32 a, float32 b, float32 c, float32* x1, float32* x2);
+//
 void  iSphereIsectVec(const xSphere * o,const xVec3 * o1, xIsect * o2);
+
+void iSphereIsectRay(const xSphere * o, const xRay3 * r, xIsect * isct);
 #endif
